@@ -1,0 +1,57 @@
+# Copyright (C) 2026 KleijnICT B.V. <https://kleijnict.nl>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# Module label 'ModuleMollieName'
+ModuleMollieName=Mollie
+# Module description 'ModuleMollieDesc'
+ModuleMollieDesc=Accept online payments via Mollie (iDEAL, cards and all methods enabled in your Mollie dashboard)
+MollieDescription=Accept online payments via Mollie
+
+# Admin pages
+MollieSetup=Mollie setup
+MollieSetupPage=Configuration of the Mollie online payment module. Payment methods are managed in your Mollie dashboard.
+MollieTestApiKey=Test API key
+MollieLiveApiKey=Live API key
+MollieKeyStored=Stored: %s (leave empty to keep)
+MollieKeyNotSet=Not set yet
+MollieLiveEnabled=Live mode
+MollieLiveEnabledHelp=Off = test payments using the test key. Enable only at go-live.
+MollieBankAccount=Bank account for Mollie payments
+MollieBankAccountHelp=The operational counter account payments are recorded on (e.g. "Mollie").
+MollieBankModuleDisabled=The Banks & Cash module is not enabled; enable it to pick an account.
+MolliePaymentMode=Payment mode for payment records
+MolliePaymentModeHelp=The payment mode used when recording the automatic payment.
+MollieTestConnection=Test connection to Mollie
+MollieSaveAndTestConnection=Save and test connection
+MollieConnectionOk=Connection to Mollie succeeded (%s mode).
+MollieConnectionFailed=Connection to Mollie failed.
+MollieActiveMethods=Active payment methods
+MollieNoActiveMethods=The key works, but no payment methods are active in the Mollie dashboard.
+
+# Payment page
+MollieDoPayment=Pay with Mollie
+MollieDoPaymentSubtitle=iDEAL, credit card and more
+MolliePaymentDescription=Invoice %s
+
+# Errors
+MollieErrorNoApiKey=No Mollie API key is configured for the selected mode.
+MollieErrorSourceNotSupported=Online payment through Mollie is only available for invoices (source '%s' is not supported).
+MollieErrorBadAmount=Invalid amount for online payment.
+MollieErrorNoCheckoutUrl=Mollie did not return a checkout URL.
+MollieErrorKeyPrefix=%s must start with "%s"; the key was not saved.
+MollieErrorTransport=Could not reach Mollie: %s
+MollieErrorApi=Mollie API error (HTTP %s): %s
+MollieErrorBadJson=Invalid response from the Mollie API (not JSON).
+MollieAboutPage=Own Mollie payment module for Dolibarr: customers pay invoices through the Mollie hosted checkout, and payments are recorded automatically via the Mollie webhook.

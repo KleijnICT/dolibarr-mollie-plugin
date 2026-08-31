@@ -1,0 +1,48 @@
+# Lokale Dolibarr 23-ontwikkelomgeving voor de Mollie-module.
+# Start:  docker compose up -d      Web: http://localhost:8080  (admin/admin)
+# De module in ../mollie is live gemount in de custom-modulemap.
+# Alleen voor lokaal gebruik: wachtwoorden zijn bewust triviaal.
+
+services:
+  mariadb:
+    image: mariadb:11.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dolibarr
+      MYSQL_USER: dolibarr
+      MYSQL_PASSWORD: dolibarr
+    volumes:
+      - dolibarr-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  dolibarr:
+    image: dolibarr/dolibarr:23
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      DOLI_DB_HOST: mariadb
+      DOLI_DB_HOST_PORT: "3306"
+      DOLI_DB_NAME: dolibarr
+      DOLI_DB_USER: dolibarr
+      DOLI_DB_PASSWORD: dolibarr
+      DOLI_ADMIN_LOGIN: admin
+      DOLI_ADMIN_PASSWORD: admin
+      DOLI_URL_ROOT: http://localhost:8080
+      DOLI_INSTALL_AUTO: "1"
+      DOLI_INIT_DEMO: "0"
+      DOLI_PROD: "0"
+      DOLI_INSTANCE_UNIQUE_ID: dev-mollie-local
+    volumes:
+      - dolibarr-docs:/var/www/documents
+      - ../mollie:/var/www/html/custom/mollie
+
+volumes:
+  dolibarr-db:
+  dolibarr-docs:

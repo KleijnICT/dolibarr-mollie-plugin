@@ -1,0 +1,57 @@
+# Copyright (C) 2026 KleijnICT B.V. <https://kleijnict.nl>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# Module label 'ModuleMollieName'
+ModuleMollieName=Mollie
+# Module description 'ModuleMollieDesc'
+ModuleMollieDesc=Ontvang online betalingen via Mollie (iDEAL, kaarten en alle methoden uit je Mollie-dashboard)
+MollieDescription=Ontvang online betalingen via Mollie
+
+# Admin pages
+MollieSetup=Mollie-instellingen
+MollieSetupPage=Configuratie van de Mollie online-betaalmodule. Betaalmethoden beheer je in het Mollie-dashboard.
+MollieTestApiKey=Test-API-sleutel
+MollieLiveApiKey=Live-API-sleutel
+MollieKeyStored=Opgeslagen: %s (laat leeg om te behouden)
+MollieKeyNotSet=Nog niet ingesteld
+MollieLiveEnabled=Live-modus
+MollieLiveEnabledHelp=Uit = testbetalingen via de test-sleutel. Pas aanzetten bij de livegang.
+MollieBankAccount=Bankrekening voor Mollie-betalingen
+MollieBankAccountHelp=De operationele tegenrekening waarop betalingen worden geboekt (bijv. "Mollie").
+MollieBankModuleDisabled=De module Banken & Kas is niet geactiveerd; activeer die om een rekening te kiezen.
+MolliePaymentMode=Betaalwijze voor betaalrecords
+MolliePaymentModeHelp=De betaalwijze waarmee de automatische betaling wordt geregistreerd.
+MollieTestConnection=Verbinding met Mollie testen
+MollieSaveAndTestConnection=Opslaan en verbinding testen
+MollieConnectionOk=Verbinding met Mollie geslaagd (%s-modus).
+MollieConnectionFailed=Verbinding met Mollie mislukt.
+MollieActiveMethods=Actieve betaalmethoden
+MollieNoActiveMethods=De sleutel werkt, maar er zijn geen betaalmethoden actief in het Mollie-dashboard.
+
+# Payment page
+MollieDoPayment=Betalen via Mollie
+MollieDoPaymentSubtitle=iDEAL, creditcard en meer
+MolliePaymentDescription=Factuur %s
+
+# Errors
+MollieErrorNoApiKey=Er is geen Mollie API-sleutel geconfigureerd voor de gekozen modus.
+MollieErrorSourceNotSupported=Onlinebetaling via Mollie is alleen beschikbaar voor facturen (bron '%s' wordt niet ondersteund).
+MollieErrorBadAmount=Ongeldig bedrag voor onlinebetaling.
+MollieErrorNoCheckoutUrl=Mollie gaf geen checkout-URL terug.
+MollieErrorKeyPrefix=%s moet beginnen met "%s"; de sleutel is niet opgeslagen.
+MollieErrorTransport=Kon Mollie niet bereiken: %s
+MollieErrorApi=Mollie API-fout (HTTP %s): %s
+MollieErrorBadJson=Ongeldig antwoord van de Mollie API (geen JSON).
+MollieAboutPage=Eigen Mollie-betaalmodule voor Dolibarr: klanten betalen facturen via de Mollie hosted checkout, en betalingen worden automatisch geboekt via de Mollie-webhook.
