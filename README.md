@@ -20,7 +20,9 @@ curl-client, integraal te auditen.
 
 ## Installatie (productie)
 
-1. Bouw de zip: `./build.sh` → `dist/module_mollie-<versie>.zip`
+1. Download `module_mollie-<versie>.zip` van de
+   [releases-pagina](https://git.martien.io/KleijnICT/dolibarr-module-mollie/releases)
+   (of bouw hem zelf: `./build.sh` → `dist/`)
 2. In Dolibarr: **Start › Instellingen › Modules › Installeer/update externe app/module** → upload de zip
 3. Activeer de module **Mollie** (familie "Interfaces") en open de instellingen
 

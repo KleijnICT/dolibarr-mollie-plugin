@@ -6,8 +6,8 @@ De module integreert in Dolibarr's ingebouwde online-betaalraamwerk (hooks in co
 
 ## Installatie
 
-1. Ga naar **Start › Instellingen › Modules/Applicaties › Installeer externe app/module**.
-2. Upload `module_mollie-x.y.z.zip`.
+1. Download `module_mollie-x.y.z.zip` van de [releases-pagina](https://git.martien.io/KleijnICT/dolibarr-module-mollie/releases).
+2. Ga naar **Start › Instellingen › Modules/Applicaties › Installeer externe app/module** en upload de zip.
 3. Activeer de module **Mollie** in de modulelijst (familie "Interfaces").
 4. Open de module-instellingen voor de configuratie.
 
