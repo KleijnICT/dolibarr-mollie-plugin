@@ -1,0 +1,11 @@
+* text=auto eol=lf
+*.sh text eol=lf
+*.php text eol=lf
+*.lang text eol=lf
+
+# Not part of a source archive (the installable zip is built by build.sh)
+/dev export-ignore
+/docs export-ignore
+/.github export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore

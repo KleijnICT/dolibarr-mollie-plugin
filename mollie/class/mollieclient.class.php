@@ -140,6 +140,10 @@ class MollieClient
 	{
 		global $langs;
 
+		// The client is also used from contexts that never load the module's language
+		// file themselves (webhook, return page), so load it here.
+		$langs->load('mollie@mollie');
+
 		$this->error = '';
 		$this->lasthttpcode = 0;
 

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/KleijnICT/dolibarr-mollie-plugin/blob/main/SECURITY.md
+    about: Please report security problems privately to support@kleijnict.nl, not here.
+  - name: Help with installation or configuration
+    url: mailto:support@kleijnict.nl
+    about: Questions that are not bugs or feature requests. Support is best effort.

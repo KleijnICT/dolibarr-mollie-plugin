@@ -1,0 +1,65 @@
+name: Release
+
+# Publishes a GitHub release with the installable module zip when a tag vX.Y.Z is
+# pushed. The tag must match $this->version in the module descriptor; the release
+# notes are the matching section of mollie/ChangeLog.md.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, json
+          coverage: none
+
+      - name: Syntax and language checks
+        run: |
+          set -e
+          find mollie -name '*.php' -print0 | xargs -0 -n1 php -l
+          ./dev/check-langs.sh
+
+      - name: Verify that the tag matches the module version
+        run: |
+          VERSION=$(sed -n "s/.*\$this->version = '\([0-9.]*\)'.*/\1/p" mollie/core/modules/modMollie.class.php)
+          TAG="${GITHUB_REF_NAME#v}"
+          if [ "$VERSION" != "$TAG" ]; then
+            echo "Tag v$TAG does not match module version $VERSION in modMollie.class.php" >&2
+            exit 1
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Build the module zip
+        run: ./build.sh
+
+      - name: Extract release notes from the changelog
+        run: |
+          awk -v ver="$VERSION" '
+            /^## / { if (found) exit; if (index($0, "## " ver " ") == 1 || $0 == "## " ver) { found = 1; next } }
+            found { print }
+          ' mollie/ChangeLog.md > release-notes.md
+          if [ ! -s release-notes.md ]; then
+            echo "No changelog section found for $VERSION, using a generic note" >&2
+            echo "Release $VERSION of the Mollie module for Dolibarr. See mollie/ChangeLog.md." > release-notes.md
+          fi
+          printf '\n\n**Install:** download `module_mollie-%s.zip` below and upload it under Home › Setup › Modules/Applications › Deploy/install external app/module. See [docs/INSTALL.md](https://github.com/%s/blob/main/docs/INSTALL.md).\n' "$VERSION" "$GITHUB_REPOSITORY" >> release-notes.md
+          cat release-notes.md
+
+      - name: Publish the GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: v${{ env.VERSION }}
+          body_path: release-notes.md
+          files: dist/module_mollie-${{ env.VERSION }}.zip
+          fail_on_unmatched_files: true
+          prerelease: ${{ contains(github.ref_name, '-') }}

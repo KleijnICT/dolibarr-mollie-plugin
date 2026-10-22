@@ -112,10 +112,14 @@ print '<table class="border centpercent">';
 print '<tr><td class="titlefield">'.$langs->trans("Version").'</td><td>'.$moduledescriptor->version.'</td></tr>';
 print '<tr><td>'.$langs->trans("Publisher").'</td><td><a href="'.dol_escape_htmltag($moduledescriptor->editor_url).'" target="_blank" rel="noopener noreferrer">'.dol_escape_htmltag($moduledescriptor->editor_name).'</a></td></tr>';
 print '<tr><td>'.$langs->trans("License").'</td><td>GPL v3+</td></tr>';
+print '<tr><td>'.$langs->trans("MollieAboutSource").'</td><td><a href="https://github.com/KleijnICT/dolibarr-mollie-plugin" target="_blank" rel="noopener noreferrer">github.com/KleijnICT/dolibarr-mollie-plugin</a></td></tr>';
+print '<tr><td>'.$langs->trans("MollieAboutSupport").'</td><td><a href="mailto:support@kleijnict.nl">support@kleijnict.nl</a></td></tr>';
 print '</table>';
 
 print '<br>';
 print '<span class="opacitymedium">'.$langs->trans("MollieAboutPage").'</span>';
+print '<br><br>';
+print '<span class="opacitymedium">'.$langs->trans("MollieAboutDisclaimer").'</span>';
 
 // Page end
 print dol_get_fiche_end();

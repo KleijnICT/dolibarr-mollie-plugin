@@ -1,0 +1,55 @@
+name: Bug report
+description: Something in the module does not work as documented.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. **Never paste API keys**, not even partially; mask them as `test_****abcd`.
+        Security problems go to support@kleijnict.nl, see SECURITY.md.
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Module version, Dolibarr version and PHP version.
+      placeholder: "Module 1.0.0, Dolibarr 23.0.4, PHP 8.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mollie mode
+      options:
+        - Test key (live mode off)
+        - Live key (live mode on)
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Validate an invoice ...
+        2. Open the online payment link ...
+        3. ...
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log excerpt
+      description: Relevant lines from the Dolibarr log (`dolibarr_payment.log` when file logging is enabled), with keys and customer data removed.
+      render: text
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have read the troubleshooting section of docs/INSTALL.md.
+        - label: The problem also occurs with a Mollie test key.
+        - label: I have removed API keys and personal data from this report.

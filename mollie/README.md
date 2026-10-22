@@ -1,44 +1,47 @@
-# Mollie voor Dolibarr
+# Mollie for Dolibarr
 
-Eigen Mollie-betaalmodule voor Dolibarr 23+. Klanten betalen verkoopfacturen (inclusief aanbetalingsfacturen) via de Mollie hosted checkout — iDEAL, kaarten en alle andere methoden die in het Mollie-dashboard aanstaan. Geslaagde betalingen worden via de Mollie-webhook automatisch geboekt op een instelbare tegenrekening en de factuur gaat op "betaald".
+Accept online payments on customer invoices through [Mollie](https://www.mollie.com/).
+Customers pay through the Mollie hosted checkout (iDEAL, cards, Bancontact, PayPal and
+every other method enabled in your Mollie dashboard). Paid payments are verified through
+the Mollie webhook and recorded automatically on a configurable bank account; the invoice
+is marked as paid.
 
-De module integreert in Dolibarr's ingebouwde online-betaalraamwerk (hooks in context `newpayment`) en heeft geen externe PHP-dependencies: de Mollie API wordt aangesproken met een eigen dunne curl-client.
+The module plugs into Dolibarr's built-in online payment framework, so the payment link
+on the invoice card and the `__ONLINE_PAYMENT_URL__` placeholder in e-mail templates work
+out of the box. It has no external PHP dependencies: the Mollie API is called through a
+small, auditable curl client.
 
-## Installatie
+## Configuration
 
-1. Download `module_mollie-x.y.z.zip` van de [releases-pagina](https://git.martien.io/KleijnICT/dolibarr-module-mollie/releases).
-2. Ga naar **Start › Instellingen › Modules/Applicaties › Installeer externe app/module** en upload de zip.
-3. Activeer de module **Mollie** in de modulelijst (familie "Interfaces").
-4. Open de module-instellingen voor de configuratie.
+Home › Setup › Modules/Applications › Mollie (gear icon):
 
-## Configuratie
+1. **Test API key** (`test_…`); add the live key only at go-live.
+2. **Live mode**: off for test payments, on for real payments.
+3. **Bank account**: the operational counter account on which payments are recorded
+   (for example "Mollie").
+4. **Payment mode** used for the payment records (for example "Online payment",
+   code `VAD`, enabled in the Payment modes dictionary).
+5. **Save and test connection**: shows the payment methods active in your Mollie
+   dashboard.
 
-Instellingen → Modules → Mollie (tandwiel):
+Also required: `PAYMENT_SECURITY_TOKEN` (and `PAYMENT_SECURITY_TOKEN_UNIQUE` = 1) on
+the instance, and `custom/mollie/public/webhook.php` must be reachable from the
+internet (an HTTP 405 answer in the browser is the expected behaviour).
 
-1. Test-API-sleutel invullen (`test_…`); de livesleutel pas bij de livegang
-2. Live-modus: uit voor testbetalingen, aan voor echte betalingen
-3. Bankrekening kiezen (de operationele tegenrekening, bijv. "Mollie")
-4. Betaalwijze kiezen (bijv. "Online payment" — activeer code `VAD` in het woordenboek Betalingswijzen)
-5. "Opslaan en verbinding testen" → toont de actieve betaalmethoden uit het Mollie-dashboard
+## Documentation and support
 
-Vereist verder: `PAYMENT_SECURITY_TOKEN` (+ `PAYMENT_SECURITY_TOKEN_UNIQUE=1`) op de
-instantie, en een publiek bereikbare `custom/mollie/public/webhook.php` (een 405-antwoord
-in de browser is het verwachte gedrag).
+- Installation guide, go-live checklist and troubleshooting:
+  https://github.com/KleijnICT/dolibarr-mollie-plugin/blob/main/docs/INSTALL.md
+- Bugs and feature requests: https://github.com/KleijnICT/dolibarr-mollie-plugin/issues
+- Help with installation or configuration: support@kleijnict.nl
 
-## Status
+## Disclaimer
 
-Versie 0.4.0: de volledige betaalflow werkt — betaallink op factuurkaart en in
-e-mailsjablonen (`__ONLINE_PAYMENT_URL__`), Mollie hosted checkout, en automatische
-boeking via de webhook (met deduplicatie). Zie `ChangeLog.md`.
+This module is free software distributed under the GNU GPL v3 or later, without any
+warranty. It processes payments and writes payment records into your Dolibarr data.
+Use it at your own risk: test it with a Mollie test key before enabling live mode and
+keep backups. This project is not affiliated with Mollie B.V. or the Dolibarr project.
 
-## Licentie
+## License
 
-GPL v3+ — zie `COPYING`.
-
-## Auteur
-
-[KleijnICT B.V.](https://kleijnict.nl)
-
----
-
-*English: own Mollie payment module for Dolibarr 23+. Customers pay sales invoices through the Mollie hosted checkout; successful payments are recorded automatically via the Mollie webhook. Integrates with Dolibarr's built-in online payment framework, no external PHP dependencies.*
+GPL v3 or later, see `COPYING`. © KleijnICT B.V., https://kleijnict.nl

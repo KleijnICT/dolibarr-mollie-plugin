@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint:
+    name: PHP ${{ matrix.php }} syntax check
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.1', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, json
+          coverage: none
+      - name: php -l on every module file
+        run: |
+          set -e
+          find mollie -name '*.php' -print0 | xargs -0 -n1 php -l
+
+  checks:
+    name: Language files and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Language files define the same keys
+        run: ./dev/check-langs.sh
+      - name: Build the module zip
+        run: ./build.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-zip
+          path: dist/*.zip
+          retention-days: 14

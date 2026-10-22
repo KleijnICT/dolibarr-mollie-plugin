@@ -66,7 +66,7 @@ class modMollie extends DolibarrModules
 		$this->editor_name = 'KleijnICT B.V.';
 		$this->editor_url = 'https://kleijnict.nl';
 
-		$this->version = '0.4.0';
+		$this->version = '1.0.0';
 
 		// Key used in llx_const table to save module status enabled/disabled (where MOLLIE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);

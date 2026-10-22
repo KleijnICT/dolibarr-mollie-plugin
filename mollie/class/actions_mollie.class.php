@@ -26,10 +26,10 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/commonhookactions.class.php';
 /**
  * Class ActionsMollie
  *
- * Will carry the online payment hooks: getValidPayment, doAddButton, doPayment,
- * doCheckStatus, isPaymentOK and getBankAccountPaymentMethod. The methods are
- * added iteratively; the module does not register itself as a payment method
- * until the Mollie API connection is configured and working.
+ * Carries the online payment hooks of Dolibarr's core framework: getValidPayment,
+ * doAddButton, doPayment, isPaymentOK and getBankAccountPaymentMethod. The module
+ * only registers itself as a payment method once an API key is configured for the
+ * active (test or live) mode, so an unconfigured module is invisible to customers.
  */
 class ActionsMollie extends CommonHookActions
 {
@@ -157,7 +157,7 @@ class ActionsMollie extends CommonHookActions
 	 * create the Mollie payment and redirect the customer to the hosted checkout.
 	 * The framework has already validated the secure key and loaded the object.
 	 * Note: we deliberately do NOT set $_SESSION['FinalPaymentAmt'], so the return
-	 * page only displays the result; the booking is done by our webhook (part 3b).
+	 * page only displays the result; the booking is done by public/webhook.php.
 	 *
 	 * @param array<string,mixed>	$parameters		'paymentmethod', 'validpaymentmethod'
 	 * @param CommonObject			$object			Object to pay (Facture for source 'invoice')
@@ -225,7 +225,9 @@ class ActionsMollie extends CommonHookActions
 
 		// Mollie refuses webhook URLs it cannot reach from the internet, so skip
 		// the webhook on a local development instance (it can be fired by hand there).
-		$webhookurl = DOL_MAIN_URL_ROOT.'/custom/mollie/public/webhook.php';
+		// dol_buildpath() with type 3 builds the absolute URL from $dolibarr_main_url_root
+		// and resolves the module wherever it is installed (htdocs/custom/ or htdocs/).
+		$webhookurl = dol_buildpath('/mollie/public/webhook.php', 3);
 		if (!preg_match('/localhost|127\.0\.0\.1/i', $webhookurl)) {
 			$body['webhookUrl'] = $webhookurl;
 		}

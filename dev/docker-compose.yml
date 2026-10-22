@@ -1,7 +1,8 @@
-# Lokale Dolibarr 23-ontwikkelomgeving voor de Mollie-module.
+# Local Dolibarr 23 development environment for the Mollie module.
 # Start:  docker compose up -d      Web: http://localhost:8080  (admin/admin)
-# De module in ../mollie is live gemount in de custom-modulemap.
-# Alleen voor lokaal gebruik: wachtwoorden zijn bewust triviaal.
+# The module in ../mollie is bind-mounted into the custom module directory,
+# so every code change is visible immediately.
+# For local use only: the passwords are deliberately trivial.
 
 services:
   mariadb:
